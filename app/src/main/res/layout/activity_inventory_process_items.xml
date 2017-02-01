@@ -1,0 +1,198 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="inventoryItem"
+            type="org.rc.inventory.model.InventoryItemModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:soundEffectsEnabled="false"
+            android:onClick="hideKeyboardOnClick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+            android:paddingLeft="@dimen/list_item_margin_left_right"
+            android:paddingRight="@dimen/list_item_margin_left_right"
+            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <!-- Material -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_material"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{inventoryItem.name}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt" />
+                    </LinearLayout>
+
+
+                    <!-- Container Location -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_container_location"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{inventoryItem.containerLocation}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt" />
+                    </LinearLayout>
+
+
+                    <!-- Available Units -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_available"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <EditText
+                            android:id="@+id/inventory_process_items_available"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/process_item_available_hint"
+                            android:inputType="numberSigned"
+                            android:text="@{inventoryItem.amount}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt"
+                            android:padding="5dp"/>
+                    </LinearLayout>
+
+                    <!-- Expiration Date -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_expiration_date"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{inventoryItem.expirationDateString}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt" />
+                    </LinearLayout>
+
+
+                    <!-- Items to be Changed -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_to_be_replaced"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <EditText
+                            android:id="@+id/inventory_process_items_to_be_changed"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/process_item_to_be_replaced_hint"
+                            android:inputType="numberSigned"
+                            android:text="@{inventoryItem.amountToBeChanged}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt"
+                            android:padding="5dp"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:onClick="onBackButtonClick"
+                    android:padding="10dp"
+                    android:text="@string/button_back" />
+
+                <Button
+                    android:id="@+id/process_items_next_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:onClick="onNextButtonClick"
+                    android:padding="10dp"
+                    android:text="@string/button_next" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

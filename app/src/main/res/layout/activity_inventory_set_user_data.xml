@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:id="@+id/activity_inventory_final_overview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.rc.inventory.activity.InventoryFinalOverviewActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/list_item_margin_top_bottom"
+        android:paddingLeft="@dimen/list_item_margin_left_right"
+        android:paddingRight="@dimen/list_item_margin_left_right"
+        android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/set_user_data_header"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="15pt" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                    android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/set_user_data_name"
+                        android:textColor="@color/colorTextSecondary"
+                        android:textSize="@dimen/list_item_content_text_size" />
+
+                    <EditText
+                        android:singleLine="true"
+                        android:id="@+id/set_user_data_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/set_user_data_name_hint"
+                        android:textColor="@color/colorTextPrimary"
+                        android:textSize="10pt" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:padding="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_back"
+                android:onClick="onBackButtonClick"/>
+
+            <Button
+                android:padding="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/button_send"
+                android:onClick="onSendButtonClick"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

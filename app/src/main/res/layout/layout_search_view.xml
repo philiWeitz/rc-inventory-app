@@ -1,0 +1,12 @@
+<SearchView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/searchView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_light_background"
+    android:queryBackground="@color/colorTransparent"
+    android:submitBackground="@color/colorTransparent"
+    android:layout_marginBottom="@dimen/search_bar_margin_left_right"
+    android:layout_marginLeft="@dimen/search_bar_margin_left_right"
+    android:layout_marginRight="@dimen/search_bar_margin_top_bottom"
+    android:layout_marginTop="@dimen/search_bar_margin_top_bottom"
+    android:queryHint="@string/search_hint" />

@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name">Inventory</string>
+
+    <!-- Titles -->
+    <string name="title_select_main_location">Select Main Location</string>
+    <string name="title_select_sub_location">Select Sub Location</string>
+    <string name="title_inventory_location_overview">Inventory Overview</string>
+    <string name="title_inventory_process_item">Process Item</string>
+    <string name="title_inventory_overview">Inventory Overview</string>
+    <string name="title_inventory_set_user_data">Set User Data</string>
+
+    <!-- Search bar -->
+    <string name="search_hint">Search...</string>
+
+    <!-- Buttons -->
+    <string name="button_ok">OK</string>
+    <string name="button_yes">Yes</string>
+    <string name="button_no">No</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_next">Next</string>
+    <string name="button_back">Back</string>
+    <string name="button_start">Start</string>
+    <string name="button_send">Send</string>
+    <string name="button_edit">Edit</string>
+    <string name="button_save">Save</string>
+    <string name="button_return_to_home">Return to main menu</string>
+
+    <!-- toast messages -->
+    <string name="toast_item_saved">Item Saved</string>
+    <string name="toast_fill_in_user_name">Please fill in the user name to continue</string>
+    <string name="toast_fill_in_all_fields">Please fill in all fields to continue</string>
+
+    <!-- Main Activity -->
+    <string name="main_activity_start_inventory">Start Inventory</string>
+    <string name="main_activity_loading_msg">Loading Excel File...</string>
+
+    <!-- Process Item -->
+    <string name="process_item_material">Material</string>
+    <string name="process_item_available">Available</string>
+    <string name="process_item_available_hint">Available Units</string>
+    <string name="process_item_expiration_date">Expiration Date</string>
+    <string name="process_item_container_location">Container Location</string>
+    <string name="process_item_to_be_replaced">Items to be replaced</string>
+    <string name="process_item_to_be_replaced_hint">Units to be replaced</string>
+
+    <!-- start inventory overview -->
+    <string name="start_inventory_overview_header">Start Inventory</string>
+    <string name="start_inventory_overview_main_location">Main Location</string>
+    <string name="start_inventory_overview_sub_location">Sub Location</string>
+
+    <!-- set user data -->
+    <string name="set_user_data_header">Set User Data</string>
+    <string name="set_user_data_name">User Name</string>
+    <string name="set_user_data_name_hint">User Name</string>
+
+    <!-- overview layout -->
+    <string name="overview_layout_available">Available items: </string>
+    <string name="overview_layout_to_be_changed">Items to be changed: </string>
+
+    <!-- inventory send alert dialog -->
+    <string name="inventory_send_title">Inventory Send</string>
+    <string name="inventory_send_msg">Inventory Send Successfully!</string>
+
+    <!-- email -->
+    <string name="email_send_to_msg">Send to...</string>
+    <string name="email_send_to_subject">Inventory</string>
+    <string name="email_send_to_email_address">philiweitz@gmail.com</string>
+    <string name="email_send_to_email_body">Inventory send by %1$s</string>
+
+    <!-- excel writer -->
+    <string name="excel_writer_col_user_name">User Name</string>
+    <string name="excel_writer_col_material">Material</string>
+    <string name="excel_writer_col_location">Location</string>
+    <string name="excel_writer_col_amount">Amount</string>
+    <string name="excel_writer_col_expected_amount">Expected Amount</string>
+    <string name="excel_writer_col_missing_items">Missing Items</string>
+    <string name="excel_writer_col_to_be_changed">To be changed</string>
+
+    <!-- alert dialogs -->
+    <string name="alert_dialog_inventory_no_items_title">No Inventory Items Available</string>
+    <string name="alert_dialog_inventory_no_items_msg">The selected inventory sub location
+        item does not exist or does not have any items.
+        Please contact your administrator to solve the problem</string>
+    <string name="alert_dialog_inventory_write_error_title">Error writing inventory</string>
+    <string name="alert_dialog_inventory_write_error_msg">Unable to write inventory to external storage.
+        Please check that this app has the right to write to the storage.</string>
+    <string name="alert_dialog_inventory_cancel_title">Cancel Inventory</string>
+    <string name="alert_dialog_inventory_cancel_msg">Do you really want to cancel the Inventory?</string>
+    <string name="alert_dialog_permission_denied_title">Permission Required</string>
+    <string name="alert_dialog_permission_denied_msg">This app can not function without writing to the external storage.
+        Please agree to continue using this application.
+    </string>
+
+
+</resources>

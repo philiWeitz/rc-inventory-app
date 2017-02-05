@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View mLoadingView;
     private View mButtonView;
-
+    private View mErrorView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initUI();
+    }
+
+
+    private void initUI() {
+        mLoadingView = findViewById(R.id.main_activity_loading_layout);
+        mButtonView = findViewById(R.id.main_activity_button_layout);
+        mErrorView = findViewById(R.id.main_activity_error_layout);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        mLoadingView.setVisibility(View.VISIBLE);
+        mButtonView.setVisibility(View.INVISIBLE);
+        mErrorView.setVisibility(View.INVISIBLE);
+
         loadExcelDataAsync();
         requestPermission();
     }
@@ -51,24 +69,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private void initUI() {
-        mLoadingView = findViewById(R.id.main_activity_loading_layout);
-        mButtonView = findViewById(R.id.main_activity_button_layout);
-    }
-
-
     private Runnable mLoadExcelFileRunnable = new Runnable() {
         @Override
         public void run() {
-            if (!ExcelParser.getInstance().isFileLoaded()) {
-                ExcelParser.getInstance().loadLocationStructure(MainActivity.this);
+
+            // load excel workbook
+            if (!ExcelParser.getInstance().isValid()) {
+                ExcelParser.getInstance().loadLocationStructureAsync();
+            }
+
+            // wait until the the workbook was loaded
+            while(!ExcelParser.getInstance().isDoneLoading()) {
+                try {
+                    Thread.sleep(10);
+                } catch (Exception e) {}
             }
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     mLoadingView.setVisibility(View.INVISIBLE);
-                    mButtonView.setVisibility(View.VISIBLE);
+
+                    if(ExcelParser.getInstance().isValid()) {
+                        mButtonView.setVisibility(View.VISIBLE);
+                        mErrorView.setVisibility(View.INVISIBLE);
+
+                    } else {
+                        mErrorView.setVisibility(View.VISIBLE);
+                        mButtonView.setVisibility(View.INVISIBLE);
+                    }
                 }
             });
         }

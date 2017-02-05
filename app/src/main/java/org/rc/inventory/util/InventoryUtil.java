@@ -16,6 +16,7 @@ public class InventoryUtil {
     }
 
     private static final String DATE_FORMAT = "dd.MM.yyyy";
+    public static final int MONTH_TILL_EXPIRING = 6;
 
     public static final String EXTRA_SUB_LOCATION_LIST = "extraSubLocationList";
     public static final String EXTRA_INVENTORY_ITEM = "extraInventoryItem";

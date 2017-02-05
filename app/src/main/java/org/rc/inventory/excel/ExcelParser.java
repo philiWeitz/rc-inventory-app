@@ -1,21 +1,18 @@
 package org.rc.inventory.excel;
 
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
-
-import com.google.common.base.Strings;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.rc.inventory.R;
+import org.rc.inventory.http.IWorkbookCallback;
+import org.rc.inventory.http.WorkbookEndpoint;
 import org.rc.inventory.model.InventoryItemModel;
 import org.rc.inventory.model.LocationModel;
 
-import java.io.InputStream;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -38,6 +35,8 @@ public class ExcelParser {
     }
 
 
+    private boolean mLoadingDone = false;
+
     private XSSFWorkbook mExcelWorkBook;
 
     private List<LocationModel> mLocationList = new LinkedList<>();
@@ -47,8 +46,13 @@ public class ExcelParser {
     }
 
 
-    public boolean isFileLoaded() {
-        return !(mLocationList.size() <= 0);
+    public boolean isDoneLoading() {
+        return mLoadingDone;
+    }
+
+
+    public boolean isValid() {
+        return (null != mExcelWorkBook);
     }
 
 
@@ -71,15 +75,35 @@ public class ExcelParser {
     }
 
 
-    public void loadLocationStructure(Context context) {
-        final InputStream is = context.getResources().openRawResource(R.raw.globale_bestandsliste);
+    public void loadLocationStructureAsync() {
+        mLoadingDone = false;
+
+        WorkbookEndpoint.getInstance().getWorkbook(new IWorkbookCallback() {
+            @Override
+            public void onFail() {
+                mLoadingDone = true;
+            }
+
+            @Override
+            public void onResponse(XSSFWorkbook workbook) {
+                // set the workbook
+                mExcelWorkBook = workbook;
+                // read the storage locations and amount
+                XSSFSheet sheet = mExcelWorkBook.getSheetAt(0);
+
+                if(null != sheet) {
+                    mLocationList = readStorageLocations(sheet);
+                } else {
+                    Log.e(TAG, "Error loading first sheet from workbook");
+                }
+
+                mLoadingDone = true;
+            }
+        });
+
 
         try {
-            mExcelWorkBook = new XSSFWorkbook(is);
-            // close the input stream
-            is.close();
-            // read the storage locations and amount
-            mLocationList = readStorageLocations(mExcelWorkBook.getSheetAt(0));
+
 
         } catch (Exception e) {
             Log.e(TAG, "Error reading XLS file", e);
@@ -98,19 +122,19 @@ public class ExcelParser {
             Row row = rowIterator.next();
 
             if(row.getLastCellNum() >= 3
-                    && row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING) {
+                    && row.getCell(0, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_STRING) {
 
                 // do we have a container row?
-                if (row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
-                    itemContainerName = row.getCell(0).getStringCellValue();
+                if (row.getCell(1, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_STRING) {
+                    itemContainerName = row.getCell(0, Row.CREATE_NULL_AS_BLANK).getStringCellValue();
 
                 // do we have an item cell?
-                } else if(row.getCell(1).getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                } else if(row.getCell(1, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_NUMERIC) {
                     // we found an item
                     InventoryItemModel item = new InventoryItemModel();
                     item.setContainerLocation(itemContainerName);
-                    item.setName(row.getCell(0).getStringCellValue());
-                    item.setAmountExpected((int) row.getCell(1).getNumericCellValue());
+                    item.setName(row.getCell(0, Row.CREATE_NULL_AS_BLANK).getStringCellValue());
+                    item.setAmountRequired(String.valueOf((int) row.getCell(1, Row.CREATE_NULL_AS_BLANK).getNumericCellValue()));
                     inventoryItemList.add(item);
                 }
             }
@@ -134,11 +158,11 @@ public class ExcelParser {
                 String subLocation = "";
                 String mainLocation = "";
 
-                if(row.getCell(0).getCellType() == Cell.CELL_TYPE_STRING) {
-                    mainLocation = row.getCell(0).getStringCellValue();
+                if(row.getCell(0, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_STRING) {
+                    mainLocation = row.getCell(0, Row.CREATE_NULL_AS_BLANK).getStringCellValue();
                 }
-                if(row.getCell(1).getCellType() == Cell.CELL_TYPE_STRING) {
-                    subLocation = row.getCell(1).getStringCellValue();
+                if(row.getCell(1, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_STRING) {
+                    subLocation = row.getCell(1, Row.CREATE_NULL_AS_BLANK).getStringCellValue();
                 }
 
                 // new parent element?
@@ -155,11 +179,11 @@ public class ExcelParser {
 
                 // new child item?
                 if(!TextUtils.isEmpty(subLocation)
-                        && row.getCell(2).getCellType() == Cell.CELL_TYPE_NUMERIC
-                        && row.getCell(2).getNumericCellValue() > 0) {
+                        && row.getCell(2, Row.CREATE_NULL_AS_BLANK).getCellType() == Cell.CELL_TYPE_NUMERIC
+                        && row.getCell(2, Row.CREATE_NULL_AS_BLANK).getNumericCellValue() > 0) {
 
                     // amount of child items
-                    int childCount = (int) (row.getCell(2).getNumericCellValue());
+                    int childCount = (int) (row.getCell(2, Row.CREATE_NULL_AS_BLANK).getNumericCellValue());
                     // name of the location
                     String childLocationName = subLocation;
 

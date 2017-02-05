@@ -78,19 +78,17 @@ public class ExcelWriter {
         row = sheet.createRow(++rowIdx);
         row.createCell(0).setCellValue(ctx.getString(R.string.excel_writer_col_material));
         row.createCell(1).setCellValue(ctx.getString(R.string.excel_writer_col_location));
-        row.createCell(2).setCellValue(ctx.getString(R.string.excel_writer_col_amount));
+        row.createCell(2).setCellValue(ctx.getString(R.string.excel_writer_col_amount_missing));
         row.createCell(3).setCellValue(ctx.getString(R.string.excel_writer_col_expected_amount));
-        row.createCell(4).setCellValue(ctx.getString(R.string.excel_writer_col_missing_items));
-        row.createCell(5).setCellValue(ctx.getString(R.string.excel_writer_col_to_be_changed));
+        row.createCell(4).setCellValue(ctx.getString(R.string.excel_writer_col_to_be_changed));
 
         for(InventoryItemModel item : inventoryItems) {
             row = sheet.createRow(++rowIdx);
             row.createCell(0).setCellValue(item.getName());
             row.createCell(1).setCellValue(item.getContainerLocation());
-            row.createCell(2).setCellValue(item.getAmount());
-            row.createCell(3).setCellValue(item.getAmountExpected());
-            row.createCell(4).setCellValue(item.getMissingItems());
-            row.createCell(5).setCellValue(item.getAmountToBeChanged());
+            row.createCell(2).setCellValue(item.getAmountMissing());
+            row.createCell(3).setCellValue(item.getAmountRequired());
+            row.createCell(4).setCellValue(item.getAmountToBeChanged());
         }
     }
 

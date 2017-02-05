@@ -26,7 +26,7 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
 
     private ViewDataBinding mBinding;
 
-    private EditText mAmountAvailable;
+    private EditText mAmountMissing;
     private EditText mToBeChanged;
 
 
@@ -46,7 +46,7 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
 
 
     private void initUI() {
-        mAmountAvailable = (EditText) findViewById(R.id.inventory_process_items_available);
+        mAmountMissing = (EditText) findViewById(R.id.inventory_process_items_missing);
         mToBeChanged = (EditText) findViewById(R.id.inventory_process_items_to_be_changed);
 
         if(mEditOnly) {
@@ -76,10 +76,10 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
     private boolean commitItem() {
         boolean successful = true;
 
-        if(mAmountAvailable.length() > 0 && mToBeChanged.length() > 0) {
+        if(mAmountMissing.length() > 0 && mToBeChanged.length() > 0) {
             // save the values
             mInventory.getInventoryItems().get(mInventoryItemIdx)
-                    .setAmount(mAmountAvailable.getText().toString());
+                    .setAmountMissing(mAmountMissing.getText().toString());
             mInventory.getInventoryItems().get(mInventoryItemIdx)
                     .setAmountToBeChanged(mToBeChanged.getText().toString());
 
@@ -91,6 +91,8 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
 
 
     public void onNextButtonClick(View view) {
+        hideKeyboardOnClick(view);
+
         if(commitItem()) {
 
             if(mEditOnly) {
@@ -128,6 +130,7 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
 
 
     public void onBackButtonClick(View view) {
+        hideKeyboardOnClick(view);
         onBackPressed();
     }
 

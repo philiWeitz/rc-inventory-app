@@ -24,4 +24,5 @@ task clean(type: Delete) {
 
 gradle.ext {
     android_support_version = '25.1.0'
+    okhttp_version = '3.5.0'
 }

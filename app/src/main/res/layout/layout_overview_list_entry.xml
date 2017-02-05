@@ -31,7 +31,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text='@{@string/overview_layout_available + " " + inventoryItem.amount}'
+                android:text='@{@string/overview_layout_amount_missing + " " + inventoryItem.amountMissing}'
                 android:textColor="@color/colorTextPrimary"
                 android:textSize="@dimen/list_item_content_text_size" />
 

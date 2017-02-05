@@ -1,0 +1,8 @@
+<resources>
+    <string name="ftp_url"></string>
+    <string name="ftp_file_name"></string>
+
+    <!-- Never commit content in this file! -->
+    <string name="ftp_username"></string>
+    <string name="ftp_password"></string>
+</resources>

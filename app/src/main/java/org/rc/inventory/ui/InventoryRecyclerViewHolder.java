@@ -14,12 +14,15 @@ import org.rc.inventory.model.InventoryItemModel;
 import org.rc.inventory.model.InventoryModel;
 import org.rc.inventory.util.InventoryUtil;
 
+import java.util.Collections;
+
 
 public class InventoryRecyclerViewHolder extends RecyclerView.ViewHolder {
 
     Activity mActivity;
     // item data
     InventoryModel mInventory;
+    InventoryItemModel mInventoryItem;
     // binding
     private ViewDataBinding mBinding;
 
@@ -40,6 +43,7 @@ public class InventoryRecyclerViewHolder extends RecyclerView.ViewHolder {
 
 
     public void setInventoryItem(InventoryItemModel inventoryItem) {
+        mInventoryItem = inventoryItem;
         mBinding.setVariable(BR.inventoryItem, inventoryItem);
         mBinding.executePendingBindings();
     }
@@ -48,11 +52,15 @@ public class InventoryRecyclerViewHolder extends RecyclerView.ViewHolder {
     private final View.OnClickListener mOnItemClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            final Intent editInventory = new Intent(mActivity, InventoryProcessItemsActivity.class);
-            editInventory.putExtra(InventoryUtil.EXTRA_INVENTORY_ITEM, mInventory);
-            editInventory.putExtra(InventoryUtil.EXTRA_INVENTORY_ITEM_IDX, getAdapterPosition());
+            int index = mInventory.getInventoryItems().indexOf(mInventoryItem);
 
-            mActivity.startActivity(editInventory);
+            if(index >= 0) {
+                final Intent editInventory = new Intent(mActivity, InventoryProcessItemsActivity.class);
+                editInventory.putExtra(InventoryUtil.EXTRA_INVENTORY_ITEM, mInventory);
+                editInventory.putExtra(InventoryUtil.EXTRA_INVENTORY_ITEM_IDX, index);
+
+                mActivity.startActivity(editInventory);
+            }
         }
     };
 

@@ -6,6 +6,7 @@ import android.util.Log;
 import org.rc.inventory.util.InventoryUtil;
 
 import java.io.Serializable;
+import java.util.Calendar;
 import java.util.Date;
 
 public class InventoryItemModel implements Serializable {
@@ -14,14 +15,26 @@ public class InventoryItemModel implements Serializable {
 
     private String containerLocation = "";
 
-    private String amount = "";
+    private String amountMissing = "0";
 
-    private int amountExpected = 0;
+    private String amountRequired = "0";
 
     private String amountToBeChanged = "0";
 
     private Date expirationDate = new Date();
 
+
+    public InventoryItemModel() {
+        setExpirationDate();
+    }
+
+    private void setExpirationDate() {
+        Date referenceDate = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(referenceDate);
+        c.add(Calendar.MONTH, InventoryUtil.MONTH_TILL_EXPIRING);
+        expirationDate = c.getTime();
+    }
 
     public String getName() {
         return name;
@@ -39,20 +52,20 @@ public class InventoryItemModel implements Serializable {
         this.containerLocation = containerLocation;
     }
 
-    public String getAmount() {
-        return amount;
+    public String getAmountMissing() {
+        return amountMissing;
     }
 
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public void setAmountMissing(String amountMissing) {
+        this.amountMissing = amountMissing;
     }
 
-    public int getAmountExpected() {
-        return amountExpected;
+    public String getAmountRequired() {
+        return amountRequired;
     }
 
-    public void setAmountExpected(int amountExpected) {
-        this.amountExpected = amountExpected;
+    public void setAmountRequired(String amountRequired) {
+        this.amountRequired = amountRequired;
     }
 
     public String getAmountToBeChanged() {
@@ -63,25 +76,7 @@ public class InventoryItemModel implements Serializable {
         this.amountToBeChanged = amountToBeChanged;
     }
 
-    public Date getExpirationDate() {
-        return expirationDate;
-    }
-
     public String getExpirationDateString() {
         return InventoryUtil.dateToString(expirationDate);
     }
-
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
-    public int getMissingItems() {
-        try {
-            return (getAmountExpected() - Integer.parseInt(getAmount()));
-        } catch(Exception e) {
-            Log.e("ExcelWriter", "Error parsing amount integer string", e);
-        }
-        return 0;
-    }
-
 }

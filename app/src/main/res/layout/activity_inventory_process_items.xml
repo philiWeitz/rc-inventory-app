@@ -82,7 +82,7 @@
                     </LinearLayout>
 
 
-                    <!-- Available Units -->
+                    <!-- Required Amount -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -93,20 +93,45 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/process_item_available"
+                            android:text="@string/process_item_amount_required"
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="@dimen/list_item_content_text_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@{inventoryItem.amountRequired}"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="10pt" />
+                    </LinearLayout>
+
+
+                    <!-- Missing Units -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingBottom="@dimen/process_item_margin_top_bottom"
+                        android:paddingTop="@dimen/process_item_margin_top_bottom">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/process_item_missing"
                             android:textColor="@color/colorTextSecondary"
                             android:textSize="@dimen/list_item_content_text_size" />
 
                         <EditText
-                            android:id="@+id/inventory_process_items_available"
+                            android:id="@+id/inventory_process_items_missing"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="@string/process_item_available_hint"
+                            android:hint="@string/process_item_missing_hint"
                             android:inputType="numberSigned"
-                            android:text="@{inventoryItem.amount}"
+                            android:text="@{inventoryItem.amountMissing}"
                             android:textColor="@color/colorTextPrimary"
                             android:textSize="10pt"
                             android:padding="5dp"/>
+
                     </LinearLayout>
 
                     <!-- Expiration Date -->

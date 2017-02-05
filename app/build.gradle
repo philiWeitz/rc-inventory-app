@@ -47,14 +47,18 @@ dependencies {
     compile group: 'com.android.support', name: 'recyclerview-v7', version: gradle.android_support_version
     compile group: 'com.android.support', name: 'cardview-v7', version: gradle.android_support_version
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //compile group: 'com.squareup.okhttp3', name: 'okhttp', version: gradle.okhttp_version
+    compile group: 'commons-net', name: 'commons-net', version: '3.5'
 
     compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9'
 
     compile 'com.android.support:appcompat-v7:25.1.0'
     compile 'com.android.support:cardview-v7:25.1.0'
     compile 'com.android.support:design:25.1.0'
+
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+
     testCompile 'junit:junit:4.12'
 }

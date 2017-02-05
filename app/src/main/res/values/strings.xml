@@ -33,15 +33,19 @@
     <!-- Main Activity -->
     <string name="main_activity_start_inventory">Start Inventory</string>
     <string name="main_activity_loading_msg">Loading Excel File...</string>
+    <string name="main_activity_error_msg">Unable to load the excel file. Please check that you have a
+        valid internet connection.
+    </string>
 
     <!-- Process Item -->
     <string name="process_item_material">Material</string>
-    <string name="process_item_available">Available</string>
-    <string name="process_item_available_hint">Available Units</string>
+    <string name="process_item_missing">Missing Items</string>
+    <string name="process_item_missing_hint">Missing Units</string>
     <string name="process_item_expiration_date">Expiration Date</string>
     <string name="process_item_container_location">Container Location</string>
     <string name="process_item_to_be_replaced">Items to be replaced</string>
     <string name="process_item_to_be_replaced_hint">Units to be replaced</string>
+    <string name="process_item_amount_required">Required Amount</string>
 
     <!-- start inventory overview -->
     <string name="start_inventory_overview_header">Start Inventory</string>
@@ -54,7 +58,7 @@
     <string name="set_user_data_name_hint">User Name</string>
 
     <!-- overview layout -->
-    <string name="overview_layout_available">Available items: </string>
+    <string name="overview_layout_amount_missing">Missing items: </string>
     <string name="overview_layout_to_be_changed">Items to be changed: </string>
 
     <!-- inventory send alert dialog -->
@@ -64,16 +68,15 @@
     <!-- email -->
     <string name="email_send_to_msg">Send to...</string>
     <string name="email_send_to_subject">Inventory</string>
-    <string name="email_send_to_email_address">philiweitz@gmail.com</string>
+    <string name="email_send_to_email_address">stacke_tobias@posteo.de</string>
     <string name="email_send_to_email_body">Inventory send by %1$s</string>
 
     <!-- excel writer -->
     <string name="excel_writer_col_user_name">User Name</string>
     <string name="excel_writer_col_material">Material</string>
     <string name="excel_writer_col_location">Location</string>
-    <string name="excel_writer_col_amount">Amount</string>
+    <string name="excel_writer_col_amount_missing">Missing Items</string>
     <string name="excel_writer_col_expected_amount">Expected Amount</string>
-    <string name="excel_writer_col_missing_items">Missing Items</string>
     <string name="excel_writer_col_to_be_changed">To be changed</string>
 
     <!-- alert dialogs -->

@@ -4,6 +4,7 @@ package org.rc.inventory.activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import org.rc.inventory.R;
 import org.rc.inventory.model.InventoryModel;
 import org.rc.inventory.model.LocationModel;
 import org.rc.inventory.util.IntentUtil;
@@ -16,6 +17,10 @@ public class InventoryLocationSubActivity extends AbstractListActivity {
 
     private InventoryModel mInventory = new InventoryModel();
 
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.title_select_sub_location;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

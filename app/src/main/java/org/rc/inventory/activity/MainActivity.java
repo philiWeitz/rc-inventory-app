@@ -1,6 +1,7 @@
 package org.rc.inventory.activity;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -9,19 +10,29 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 
 import org.rc.inventory.R;
 import org.rc.inventory.excel.ExcelParser;
+import org.rc.inventory.http.FtpResponseCode;
 import org.rc.inventory.model.InventoryModel;
 import org.rc.inventory.util.InventoryUtil;
 
-public class MainActivity extends AppCompatActivity {
+import java.net.HttpURLConnection;
+
+public class MainActivity extends AbstractToolbarActivity {
 
     private static final int PERMISSIONS_REQUEST_WRITE_EXTERNAL_STORAGE = 1;
 
     private View mLoadingView;
     private View mButtonView;
-    private View mErrorView;
+    private TextView mErrorView;
+
+
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.main_activity_caption;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private void initUI() {
         mLoadingView = findViewById(R.id.main_activity_loading_layout);
         mButtonView = findViewById(R.id.main_activity_button_layout);
-        mErrorView = findViewById(R.id.main_activity_error_layout);
+        mErrorView = (TextView) findViewById(R.id.main_activity_error_layout);
     }
 
 
@@ -90,13 +101,23 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     mLoadingView.setVisibility(View.INVISIBLE);
 
-                    if(ExcelParser.getInstance().isValid()) {
-                        mButtonView.setVisibility(View.VISIBLE);
-                        mErrorView.setVisibility(View.INVISIBLE);
+                    switch (ExcelParser.getInstance().getResponseCode()) {
+                        case OK:
+                            mButtonView.setVisibility(View.VISIBLE);
+                            mErrorView.setVisibility(View.INVISIBLE);
+                            break;
 
-                    } else {
-                        mErrorView.setVisibility(View.VISIBLE);
-                        mButtonView.setVisibility(View.INVISIBLE);
+                        case INVOCATION_ERROR:
+                            mErrorView.setText(R.string.main_activity_error_no_content_msg);
+                            mErrorView.setVisibility(View.VISIBLE);
+                            mButtonView.setVisibility(View.INVISIBLE);
+                            break;
+
+                        default:
+                            mErrorView.setText(R.string.main_activity_error_msg);
+                            mErrorView.setVisibility(View.VISIBLE);
+                            mButtonView.setVisibility(View.INVISIBLE);
+                            break;
                     }
                 }
             });

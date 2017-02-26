@@ -1,10 +1,12 @@
 package org.rc.inventory.http;
 
 
+import android.graphics.Bitmap;
+
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 
-public interface IWorkbookCallback {
+public interface IImageCallback {
     void onFail(FtpResponseCode response);
-    void onResponse(XSSFWorkbook workbook);
+    void onResponse(Bitmap image);
 }

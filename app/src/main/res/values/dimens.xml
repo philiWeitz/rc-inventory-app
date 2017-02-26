@@ -7,9 +7,10 @@
     <dimen name="list_item_margin_top_bottom">20dp</dimen>
     <dimen name="list_item_content_text_size">8pt</dimen>
 
-    <dimen name="process_item_margin_top_bottom">8dp</dimen>
+    <dimen name="process_item_margin_top_bottom">10dp</dimen>
     <dimen name="search_bar_margin_top_bottom">10dp</dimen>
     <dimen name="search_bar_margin_left_right">5dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="layout_dimension_width">-1px</dimen>
 </resources>

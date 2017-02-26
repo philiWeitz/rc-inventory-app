@@ -7,109 +7,126 @@
             type="org.rc.inventory.model.InventoryModel" />
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/list_item_margin_top_bottom"
-        android:paddingLeft="@dimen/list_item_margin_left_right"
-        android:paddingRight="@dimen/list_item_margin_left_right"
-        android:paddingTop="@dimen/list_item_margin_top_bottom">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="40dp"
-                    android:layout_marginTop="40dp"
-                    android:text="@string/start_inventory_overview_header"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorTextPrimary"
-                    android:textSize="15pt" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/list_item_margin_top_bottom"
-                    android:paddingTop="@dimen/list_item_margin_top_bottom">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/start_inventory_overview_main_location"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="@dimen/list_item_content_text_size" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{inventoryModel.mainLocation}"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="10pt" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="@dimen/list_item_margin_top_bottom"
-                    android:paddingTop="@dimen/list_item_margin_top_bottom">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/start_inventory_overview_sub_location"
-                        android:textColor="@color/colorTextSecondary"
-                        android:textSize="@dimen/list_item_content_text_size" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@{inventoryModel.subLocation}"
-                        android:textColor="@color/colorTextPrimary"
-                        android:textSize="10pt" />
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
+        android:background="@color/colorOuterBackground"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="@dimen/layout_dimension_width"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:background="@color/colorBackground"
+            android:orientation="vertical">
 
-            <Button
-                android:padding="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_back"
-                android:onClick="onBackButtonClick"/>
+            <include layout="@layout/layout_tool_bar" />
 
-            <Button
-                android:padding="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/button_start"
-                android:onClick="onStartInventoryClick"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="30dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginTop="40dp"
+                            android:text="@string/start_inventory_overview_header"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="15pt" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/start_inventory_overview_main_location"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="@dimen/list_item_content_text_size" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{inventoryModel.mainLocation}"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="10pt" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:paddingBottom="@dimen/list_item_margin_top_bottom"
+                            android:paddingTop="@dimen/list_item_margin_top_bottom">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/start_inventory_overview_sub_location"
+                                android:textColor="@color/colorTextSecondary"
+                                android:textSize="@dimen/list_item_content_text_size" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@{inventoryModel.subLocation}"
+                                android:textColor="@color/colorTextPrimary"
+                                android:textSize="10pt" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style"
+                            android:onClick="onBackButtonClick"
+                            android:padding="10dp"
+                            android:text="@string/button_back"
+                            android:textColor="@color/colorTextButton" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_style"
+                            android:onClick="onStartInventoryClick"
+                            android:padding="10dp"
+                            android:text="@string/button_start"
+                            android:textColor="@color/colorTextButton" />
+                    </LinearLayout>
+                </LinearLayout>
+            </ScrollView>
         </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

@@ -13,13 +13,19 @@ import org.rc.inventory.model.InventoryModel;
 import org.rc.inventory.ui.InventoryRecyclerViewAdapter;
 import org.rc.inventory.util.InventoryUtil;
 
-public class InventoryFinalOverviewActivity extends AppCompatActivity {
+public class InventoryFinalOverviewActivity extends AbstractToolbarActivity {
 
     private InventoryModel mInventory = new InventoryModel();
 
     private InventoryRecyclerViewAdapter mListAdapter;
 
     private SearchView mSearchView;
+
+
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.title_inventory_overview;
+    }
 
 
     @Override

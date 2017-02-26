@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.android.databinding.library.baseAdapters.BR;
@@ -17,9 +18,15 @@ import org.rc.inventory.util.InventoryUtil;
 
 import java.util.List;
 
-public class InventorySelectionOverviewActivity extends AbstractInventoryActivity {
+public class InventorySelectionOverviewActivity extends AbstractToolbarActivity {
 
     private InventoryModel mInventory = new InventoryModel();
+
+
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.title_inventory_location_overview;
+    }
 
 
     @Override

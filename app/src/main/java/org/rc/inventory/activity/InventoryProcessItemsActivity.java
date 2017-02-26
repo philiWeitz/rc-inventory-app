@@ -1,24 +1,32 @@
 package org.rc.inventory.activity;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.databinding.library.baseAdapters.BR;
 
 import org.rc.inventory.R;
+import org.rc.inventory.http.FtpResponseCode;
+import org.rc.inventory.http.IImageCallback;
+import org.rc.inventory.http.ImageEndpoint;
+import org.rc.inventory.model.InventoryItemModel;
 import org.rc.inventory.model.InventoryModel;
 import org.rc.inventory.util.InventoryUtil;
 
-public class InventoryProcessItemsActivity extends AppCompatActivity {
+public class InventoryProcessItemsActivity extends AbstractToolbarActivity {
 
     private boolean mEditOnly = false;
     private int mInventoryItemIdx = 0;
@@ -29,6 +37,18 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
     private EditText mAmountMissing;
     private EditText mToBeChanged;
 
+    private ImageView mLocationImageViewBig;
+    private ImageView mLocationImageViewSmall;
+    private Bitmap mLocationBitmap = null;
+
+    private String mLastLocationImageName = "";
+
+
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.title_inventory_process_item;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +58,19 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
         setInventoryModel();
         // gets the data binding object
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_inventory_process_items);
-        // sets the first item
-        setInventoryItem();
         // get the UI elements
         initUI();
+        // sets the first item
+        setInventoryItem();
     }
 
 
     private void initUI() {
         mAmountMissing = (EditText) findViewById(R.id.inventory_process_items_missing);
         mToBeChanged = (EditText) findViewById(R.id.inventory_process_items_to_be_changed);
+
+        mLocationImageViewBig = (ImageView) findViewById(R.id.inventory_process_items_location_image_big);
+        mLocationImageViewSmall = (ImageView) findViewById(R.id.inventory_process_items_location_image_small);
 
         if(mEditOnly) {
             ((Button) findViewById(R.id.process_items_next_button)).setText(R.string.button_save);
@@ -68,8 +91,29 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
 
     private void setInventoryItem() {
         if(mInventoryItemIdx >= 0 && mInventoryItemIdx < mInventory.getInventoryItems().size()) {
-            mBinding.setVariable(BR.inventoryItem, mInventory.getInventoryItems().get(mInventoryItemIdx));
+
+            // only show the small image
+            onBigImageClick(null);
+            // get the new item
+            InventoryItemModel item = mInventory.getInventoryItems().get(mInventoryItemIdx);
+            // set the data
+            mBinding.setVariable(BR.inventoryItem, item);
+            // set the location image
+            String imageName = item.getLocationImageName();
+
+            // only load the bitmap if not already loaded
+            if(TextUtils.isEmpty(mLastLocationImageName) || !mLastLocationImageName.equals(imageName)) {
+                mLocationImageViewBig.setImageDrawable(null);
+                mLocationImageViewSmall.setImageDrawable(null);
+
+                mLastLocationImageName = imageName;
+
+                ImageEndpoint.getInstance().getImage(
+                    item.getLocationImageName(), mLocationImageCallback);
+            }
         }
+
+        mToBeChanged.requestFocus();
     }
 
 
@@ -103,7 +147,15 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
                 ++mInventoryItemIdx;
 
                 if (mInventoryItemIdx < mInventory.getInventoryItems().size()) {
+                    // show next animation
+                    AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(
+                            this, R.animator.slide_next_animator);
+                    set.setTarget(findViewById(R.id.test_anim));
+                    set.start();
+
+                    // set next item values
                     setInventoryItem();
+
                 } else {
                     showOverviewPage();
                 }
@@ -145,6 +197,12 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
             --mInventoryItemIdx;
 
             if (mInventoryItemIdx >= 0) {
+                // show back animation
+                AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(
+                        this, R.animator.slide_back_animator);
+                set.setTarget(findViewById(R.id.test_anim));
+                set.start();
+                // set previous item values
                 setInventoryItem();
             } else {
                 // return to previous activity
@@ -166,5 +224,46 @@ public class InventoryProcessItemsActivity extends AppCompatActivity {
         InputMethodManager inputMethodManager =
                 (InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
         inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+
+    private IImageCallback mLocationImageCallback = new IImageCallback() {
+        @Override
+        public void onFail(FtpResponseCode response) {
+            setImage(null);
+        }
+
+        @Override
+        public void onResponse(Bitmap image) {
+            setImage(image);
+        }
+
+        private void setImage(final Bitmap bitmap) {
+            InventoryProcessItemsActivity.this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mLocationImageViewBig.setImageBitmap(bitmap);
+                    mLocationImageViewSmall.setImageBitmap(bitmap);
+
+                    if(null != mLocationBitmap) {
+                        mLocationBitmap.recycle();
+                    }
+
+                    mLocationBitmap = bitmap;
+                }
+            });
+        }
+    };
+
+
+    public void onSmallImageClick(View v) {
+        mLocationImageViewBig.setVisibility(View.VISIBLE);
+        mLocationImageViewSmall.setVisibility(View.GONE);
+    }
+
+
+    public void onBigImageClick(View v) {
+        mLocationImageViewBig.setVisibility(View.GONE);
+        mLocationImageViewSmall.setVisibility(View.VISIBLE);
     }
 }

@@ -17,11 +17,17 @@ import org.rc.inventory.util.InventoryUtil;
 
 import java.io.File;
 
-public class InventorySetUserDataActivity extends AppCompatActivity {
+public class InventorySetUserDataActivity extends AbstractToolbarActivity {
 
     private InventoryModel mInventory = new InventoryModel();
     private EditText mUserNameEditText;
     private boolean mEmailSend = false;
+
+
+    @Override
+    protected int getToolbarCaption() {
+        return R.string.title_inventory_set_user_data;
+    }
 
 
     @Override
@@ -109,6 +115,7 @@ public class InventorySetUserDataActivity extends AppCompatActivity {
         if(mEmailSend) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.inventory_send_title)
+                    .setCancelable(false)
                     .setMessage(R.string.inventory_send_msg)
                     .setPositiveButton(R.string.button_return_to_home, new DialogInterface.OnClickListener() {
                         @Override

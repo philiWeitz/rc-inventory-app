@@ -5,8 +5,8 @@
     android:background="@color/cardview_light_background"
     android:queryBackground="@color/colorTransparent"
     android:submitBackground="@color/colorTransparent"
-    android:layout_marginBottom="@dimen/search_bar_margin_left_right"
-    android:layout_marginLeft="@dimen/search_bar_margin_left_right"
-    android:layout_marginRight="@dimen/search_bar_margin_top_bottom"
-    android:layout_marginTop="@dimen/search_bar_margin_top_bottom"
+    android:paddingBottom="@dimen/search_bar_margin_left_right"
+    android:paddingLeft="@dimen/search_bar_margin_left_right"
+    android:paddingRight="@dimen/search_bar_margin_top_bottom"
+
     android:queryHint="@string/search_hint" />

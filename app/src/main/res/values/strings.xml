@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Inventory</string>
 
+    <string name="location_last_check_caption">Last checked:</string>
+
     <!-- Titles -->
     <string name="title_select_main_location">Select Main Location</string>
     <string name="title_select_sub_location">Select Sub Location</string>
@@ -31,11 +33,14 @@
     <string name="toast_fill_in_all_fields">Please fill in all fields to continue</string>
 
     <!-- Main Activity -->
+    <string name="main_activity_caption">DRK Inventory</string>
     <string name="main_activity_start_inventory">Start Inventory</string>
     <string name="main_activity_loading_msg">Loading Excel File...</string>
     <string name="main_activity_error_msg">Unable to load the excel file. Please check that you have a
         valid internet connection.
     </string>
+     <string name="main_activity_error_no_content_msg">Unable to load the Excel file.
+         Your device might have memory limitations which kills the process</string>
 
     <!-- Process Item -->
     <string name="process_item_material">Material</string>

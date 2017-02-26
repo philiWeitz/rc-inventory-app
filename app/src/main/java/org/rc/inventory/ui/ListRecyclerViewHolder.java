@@ -1,5 +1,6 @@
 package org.rc.inventory.ui;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -7,6 +8,10 @@ import android.widget.TextView;
 import org.rc.inventory.R;
 import org.rc.inventory.activity.AbstractListActivity;
 import org.rc.inventory.model.LocationModel;
+import org.rc.inventory.util.InventoryUtil;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class ListRecyclerViewHolder extends RecyclerView.ViewHolder {
@@ -36,8 +41,29 @@ public class ListRecyclerViewHolder extends RecyclerView.ViewHolder {
 
         TextView textView = (TextView)
                 mView.findViewById(R.id.layout_list_entry_value);
+        TextView lastCheckedTextView = (TextView)
+                mView.findViewById(R.id.layout_list_entry_value_last_check);
 
         textView.setText(data.getDisplayName());
+
+        if(null == mItemData.getLastCheck()) {
+            lastCheckedTextView.setVisibility(View.GONE);
+
+        } else {
+            Calendar c = Calendar.getInstance();
+            c.setTime(new Date());
+            c.add(Calendar.MONTH, -InventoryUtil.MONTH_TILL_LAST_CHECK);
+
+            String caption = mActivity.getString(R.string.location_last_check_caption);
+            lastCheckedTextView.setText(caption + " " + InventoryUtil.dateToString(data.getLastCheck()));
+            lastCheckedTextView.setTextColor(ContextCompat.getColor(mActivity, R.color.colorTextSecondary));
+
+            // color it red!
+            if(data.getLastCheck().before(c.getTime())) {
+                lastCheckedTextView.setTextColor(ContextCompat.getColor(mActivity, R.color.colorRed));
+            }
+        }
+
     }
 
 

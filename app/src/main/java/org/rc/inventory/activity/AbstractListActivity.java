@@ -11,7 +11,7 @@ import org.rc.inventory.ui.ListRecyclerViewAdapter;
 
 import java.util.List;
 
-public abstract class AbstractListActivity extends AppCompatActivity {
+public abstract class AbstractListActivity extends AbstractToolbarActivity {
 
     private ListRecyclerViewAdapter mListAdapter;
 

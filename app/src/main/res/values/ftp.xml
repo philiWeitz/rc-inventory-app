@@ -1,8 +1,9 @@
 <resources>
-    <string name="ftp_url"></string>
-    <string name="ftp_file_name"></string>
+    <string name="ftp_url">6zcny2eifc0vwcw5.myfritz.net</string>
+    <string name="ftp_excel_file_name">Globale Bestandsliste.xlsx</string>
+    <string name="ftp_image_path">images</string>
 
     <!-- Never commit content in this file! -->
-    <string name="ftp_username"></string>
-    <string name="ftp_password"></string>
+    <string name="ftp_username">Arbeitskreis-Materialmanagement</string>
+    <string name="ftp_password">biZENTRUM2017&amp;akMaterial</string>
 </resources>

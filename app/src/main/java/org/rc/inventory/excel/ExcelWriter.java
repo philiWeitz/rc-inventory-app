@@ -45,9 +45,8 @@ public class ExcelWriter {
         File result = null;
 
         // create the workbook
-        Workbook wb = new XSSFWorkbook();
+        XSSFWorkbook wb = new XSSFWorkbook();
         // create the sheet
-        CreationHelper createHelper = wb.getCreationHelper();
         Sheet sheet = wb.createSheet(inventory.getSubLocation());
         // write the cells
         writeInventoryItems(ctx, sheet, userName, inventory.getInventoryItems());

@@ -4,7 +4,17 @@
     android:id="@+id/activity_select_location"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorOuterBackground"
     tools:context="org.rc.inventory.activity.AbstractListActivity">
+
+    <LinearLayout
+        android:layout_width="@dimen/layout_dimension_width"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:background="@color/colorBackground">
+
+    <include layout="@layout/layout_tool_bar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/activity_select_location_recycler_view"
@@ -12,5 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical" />
+
+    </LinearLayout>
 
 </RelativeLayout>

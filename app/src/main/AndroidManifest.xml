@@ -13,25 +13,40 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:largeHeap="true">
-        <activity android:name=".activity.MainActivity">
+
+        <activity android:name=".activity.MainActivity"
+            android:configChanges="orientation|screenSize">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".activity.InventoryLocationMainActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_select_main_location"/>
+
         <activity android:name=".activity.InventoryLocationSubActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_select_sub_location"/>
+
         <activity android:name=".activity.InventorySelectionOverviewActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_inventory_location_overview"/>
+
         <activity android:name=".activity.InventoryProcessItemsActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_inventory_process_item"
             android:windowSoftInputMode="stateHidden"/>
+
         <activity android:name=".activity.InventoryFinalOverviewActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_inventory_overview"/>
+
         <activity android:name=".activity.InventorySetUserDataActivity"
+            android:configChanges="orientation|screenSize"
             android:label="@string/title_inventory_set_user_data"/>
     </application>
 

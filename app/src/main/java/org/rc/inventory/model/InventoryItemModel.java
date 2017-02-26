@@ -1,8 +1,6 @@
 package org.rc.inventory.model;
 
 
-import android.util.Log;
-
 import org.rc.inventory.util.InventoryUtil;
 
 import java.io.Serializable;
@@ -20,6 +18,8 @@ public class InventoryItemModel implements Serializable {
     private String amountRequired = "0";
 
     private String amountToBeChanged = "0";
+
+    private String locationImageName = "placeholder_image.png";
 
     private Date expirationDate = new Date();
 
@@ -74,6 +74,14 @@ public class InventoryItemModel implements Serializable {
 
     public void setAmountToBeChanged(String amountToBeChanged) {
         this.amountToBeChanged = amountToBeChanged;
+    }
+
+    public String getLocationImageName() {
+        return locationImageName;
+    }
+
+    public void setLocationImageName(String locationImageName) {
+        this.locationImageName = locationImageName;
     }
 
     public String getExpirationDateString() {

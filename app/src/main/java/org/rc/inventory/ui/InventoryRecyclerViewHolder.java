@@ -37,7 +37,7 @@ public class InventoryRecyclerViewHolder extends RecyclerView.ViewHolder {
         binding.getRoot().setOnClickListener(mHideKeyboardObClick);
         binding.getRoot().setSoundEffectsEnabled(false);
 
-        binding.getRoot().findViewById(R.id.overview_list_entry_edit_button)
+        binding.getRoot().findViewById(R.id.overview_list_entry_edit_image_view)
                 .setOnClickListener(mOnItemClick);
     }
 

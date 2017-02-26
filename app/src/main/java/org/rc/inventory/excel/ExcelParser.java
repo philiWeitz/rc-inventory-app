@@ -8,11 +8,14 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.rc.inventory.http.FtpResponseCode;
 import org.rc.inventory.http.IWorkbookCallback;
 import org.rc.inventory.http.WorkbookEndpoint;
 import org.rc.inventory.model.InventoryItemModel;
 import org.rc.inventory.model.LocationModel;
 
+import java.net.HttpURLConnection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,6 +37,7 @@ public class ExcelParser {
 
     }
 
+    private FtpResponseCode mFtpResponse = FtpResponseCode.OK;
 
     private boolean mLoadingDone = false;
 
@@ -53,6 +57,11 @@ public class ExcelParser {
 
     public boolean isValid() {
         return (null != mExcelWorkBook);
+    }
+
+
+    public FtpResponseCode getResponseCode() {
+        return mFtpResponse;
     }
 
 
@@ -80,7 +89,8 @@ public class ExcelParser {
 
         WorkbookEndpoint.getInstance().getWorkbook(new IWorkbookCallback() {
             @Override
-            public void onFail() {
+            public void onFail(FtpResponseCode response) {
+                mFtpResponse = response;
                 mLoadingDone = true;
             }
 
@@ -93,21 +103,15 @@ public class ExcelParser {
 
                 if(null != sheet) {
                     mLocationList = readStorageLocations(sheet);
+                    mFtpResponse = FtpResponseCode.OK;
                 } else {
                     Log.e(TAG, "Error loading first sheet from workbook");
+                    mFtpResponse = FtpResponseCode.STREAM_ERROR;
                 }
 
                 mLoadingDone = true;
             }
         });
-
-
-        try {
-
-
-        } catch (Exception e) {
-            Log.e(TAG, "Error reading XLS file", e);
-        }
     }
 
 
@@ -184,6 +188,8 @@ public class ExcelParser {
 
                     // amount of child items
                     int childCount = (int) (row.getCell(2, Row.CREATE_NULL_AS_BLANK).getNumericCellValue());
+                    Date lastCheck = row.getCell(3, Row.CREATE_NULL_AS_BLANK).getDateCellValue();
+
                     // name of the location
                     String childLocationName = subLocation;
 
@@ -192,6 +198,7 @@ public class ExcelParser {
                         LocationModel childLocation = new LocationModel();
                         childLocation.setName(childLocationName);
                         childLocation.setDisplayName(childLocationName);
+                        childLocation.setLastCheck(lastCheck);
                         currentLocation.getSubLocations().add(childLocation);
 
                     } else {
@@ -200,6 +207,7 @@ public class ExcelParser {
                             LocationModel childLocation = new LocationModel();
                             childLocation.setName(childLocationName);
                             childLocation.setDisplayName(childLocationName + " " + i);
+                            childLocation.setLastCheck(lastCheck);
                             currentLocation.getSubLocations().add(childLocation);
                         }
                     }
